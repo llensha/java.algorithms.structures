@@ -183,4 +183,28 @@ public class ArrayImpl<E extends Comparable<? super E>> implements Array<E> {
     private int calculateNewLength() {
         return size > 0 ? size * 2 : 1;
     }
+
+    @Override
+    public E[] toArray() {
+        return data;
+    }
+
+    @Override
+    public Array<E> copy() {
+//        try {
+//            return this.clone();
+//        } catch (CloneNotSupportedException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+        ArrayImpl<E> array = new ArrayImpl<>(size);
+        array.size = size;
+        array.data = Arrays.copyOf(this.data, size);
+        return array;
+    }
+
+    @Override
+    protected ArrayImpl<E> clone() throws CloneNotSupportedException {
+        return (ArrayImpl<E>) super.clone();
+    }
 }
