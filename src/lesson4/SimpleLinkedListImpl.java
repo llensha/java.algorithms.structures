@@ -1,5 +1,7 @@
 package lesson4;
 
+import java.util.Iterator;
+
 public class SimpleLinkedListImpl<E> implements LinkedList<E> {
 
     protected int size;
@@ -97,4 +99,35 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E> {
     public E getFirst() {
         return firstElement.item;
     }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new Iter();
+    }
+
+    private class Iter implements Iterator<E> {
+        private Node<E> lastReturned;
+        private Node<E> next;
+
+        Iter() {
+            lastReturned = firstElement;
+            next = firstElement;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return lastReturned.next != null;
+        }
+
+        @Override
+        public E next() {
+            lastReturned = next;
+            next = next.next;
+            return lastReturned.item;
+        }
+
+    }
+
 }
+
+
