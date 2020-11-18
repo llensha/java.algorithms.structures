@@ -4,6 +4,8 @@ import java.util.function.Consumer;
 
 public interface Tree<E extends Comparable<? super E>> {
 
+    Node<E> getRoot();
+
     enum TraverseMode {
         IN_ORDER,
         PRE_ORDER,
@@ -23,5 +25,7 @@ public interface Tree<E extends Comparable<? super E>> {
     void traverse(TraverseMode mode, Consumer<E> action);
 
     void display();
+
+    boolean isBalanced(Node<E> node);
 
 }
