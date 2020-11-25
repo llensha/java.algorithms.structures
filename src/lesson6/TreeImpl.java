@@ -16,6 +16,11 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
     public TreeImpl() {
     }
 
+    // Из ДЗ в версии Олега
+//    public TreeImpl() {
+//        this(0);
+//    }
+
     @Override
     public Node<E> getRoot() {
         return this.root;
@@ -261,6 +266,12 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
 
     private int height(Node<E> node) {
         return node == null ? 0 : 1 + Math.max(height(node.getLeftChild()), height(node.getRightChild()));
+    }
+
+    // Из ДЗ в версии Олега
+    @Override
+    public boolean isBalanced() {
+        return isBalanced(root);
     }
 
 }

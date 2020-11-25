@@ -9,11 +9,11 @@ public class CheckBalancedTree {
     private static final int MAX_LEVEL = 4;
     private static final int COUNT_TREE = 20;
     private static final int RANGE_RANDOM = 25;
-    private static int COUNT_NOT_BALANCED = 0;
+    private static int countNotBalanced = 0;
 
     public static void main(String[] args) {
         createAndCheckTree();
-        System.out.println((COUNT_NOT_BALANCED * 100 / COUNT_TREE) + "% несбалансированных деревьев");
+        System.out.println((countNotBalanced * 100 / COUNT_TREE) + "% несбалансированных деревьев");
     }
 
     private static void createAndCheckTree() {
@@ -25,7 +25,7 @@ public class CheckBalancedTree {
             }
             boolean isTreeBalanced = tree.isBalanced(tree.getRoot());
             if (!isTreeBalanced) {
-                COUNT_NOT_BALANCED++;
+                countNotBalanced++;
             }
         }
 

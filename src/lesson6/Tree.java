@@ -28,4 +28,7 @@ public interface Tree<E extends Comparable<? super E>> {
 
     boolean isBalanced(Node<E> node);
 
+    // Из ДЗ в версии Олега
+    boolean isBalanced();
+
 }
