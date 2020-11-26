@@ -145,4 +145,73 @@ public class Graph {
         queue.add(vertex);
         vertex.setVisited(true);
     }
+
+    public void searchShortestPath(String startLabel, String endLabel) {
+        int startIndex = indexOf(startLabel);
+        int endIndex = indexOf(endLabel);
+        if (startIndex == -1 || endIndex == -1) {
+            throw new IllegalArgumentException("Invalid start label or end label");
+        }
+
+        boolean successSearch = false;
+        Queue<Vertex> queue = new LinkedList<>();
+
+        Vertex vertex = vertexList.get(startIndex);
+
+        visitVertexForSearch(vertex, queue, null);
+        String previousLabel = vertex.getLabel();
+
+        while (!queue.isEmpty()) {
+            vertex = getNearUnvisitedVertex(queue.peek());
+            if (vertex != null) {
+                visitVertexForSearch(vertex, queue, previousLabel);
+                if (vertex.getLabel().equals(endLabel)) {
+                    successSearch = true;
+                    break;
+                }
+            }
+            else {
+                queue.remove();
+                if (!queue.isEmpty()) {
+                    previousLabel = queue.peek().getLabel();
+                }
+            }
+
+        }
+
+        if (successSearch) {
+
+            Stack path = new Stack();
+            path.push(vertex.getLabel());
+            while (vertex.getPreviousLabel() != null) {
+                path.push(vertex.getPreviousLabel());
+                vertex = vertexList.get(indexOf(vertex.getPreviousLabel()));
+            }
+
+            System.out.println(String.format("Кратчайший путь от %s до %s:", startLabel, endLabel));
+            while (!path.isEmpty()) {
+                System.out.print(path.pop() + " ");
+            }
+            System.out.println();
+
+        } else {
+            System.out.println("Путь не найден");
+        }
+
+        resetVertexStateForSearch();
+    }
+
+    private void visitVertexForSearch(Vertex vertex, Queue<Vertex> queue, String previousLabel) {
+        queue.add(vertex);
+        vertex.setVisited(true);
+        vertex.setPreviousLabel(previousLabel);
+    }
+
+    private void resetVertexStateForSearch() {
+        for (Vertex vertex : vertexList) {
+            vertex.setVisited(false);
+            vertex.setPreviousLabel(null);
+        }
+    }
+
 }
